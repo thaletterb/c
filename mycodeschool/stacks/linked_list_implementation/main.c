@@ -8,62 +8,40 @@ typedef struct node_t
 } node_t;
 
 node_t *head;   // an empty list
-int top = -1;   // is this needed?
 
+// ALL INSERT/DELETE MUST BE DONE AT HEAD OF LIST FOR CONSTANT TIME O(1) COMPLEXITY!!!
+// CONSTANT TIME COMPLEXITY IS WHY WE USE STACKS
 void stack_push(int a)
 {
-    node_t *temp = head;
     node_t *new_node = (node_t*)malloc(sizeof(node_t));
-
     new_node->value = a;
-    new_node->next = NULL;
-
-    if(temp == NULL)    // empty list
-    {
-        head = new_node;
-        return;
-    }
-    
-    while(temp->next != NULL)   // Traverse to end of the list
-    {
-        temp = temp->next;
-    }
-    temp->next = new_node;
+    new_node->next = head;
+    head = new_node;
 }
 
 void stack_pop()
 {
-    int count = 0;
-    node_t *temp = head;
-
-    while((temp->next)->next != NULL)   // Traverse to end of the list
-    {
-        temp = temp->next;
-    }
-    temp->next = NULL;
-    
+    node_t *temp;
+    if(head == NULL)
+        return; // stack is already empty
+    temp = head;
+    head = head->next;
+    free(temp);
 }
 
 int stack_top()
 {
-    node_t *temp = head;
-    while(temp->next != NULL)
-    {
-        temp = temp->next;
-    }
-    return temp->value;   
+    return head->value;
 }
 
 int stack_is_empty()
 {
-    node_t *temp = head;
-    if(temp == NULL)
+    if(head == NULL)
     {
         return 1;
     }
-    else{
-        return 0;   // temp
-    }
+    else
+        return 0;
 }
 
 void stack_print(void)
