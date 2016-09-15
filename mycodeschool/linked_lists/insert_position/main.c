@@ -43,6 +43,27 @@ void insert_position(int value, int position)
 
 }
 
+// Fix the links so the node is no longer part of the list
+// Free node's memory
+void delete_position(int position)
+{
+    node_t *temp = head;
+    node_t *delete_node;
+    if(position == 1)       // Delete  
+    {
+        head = temp->next;
+        free(temp);
+        return;
+    }
+    for(int i=0; i<(position-2); i++)
+    {
+        temp=temp->next;    
+    }
+    delete_node = temp->next;
+    temp->next = (temp->next)->next;
+    free(delete_node);
+}
+
 void print_list(void)
 {
     node_t *temp = head;
@@ -63,6 +84,8 @@ int main(void)
     insert_position(6, 3);
     insert_position(5, 3);
     insert_position(5, 2);
+    print_list();
+    delete_position(4);
     print_list();
     return 0;
 }
