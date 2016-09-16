@@ -44,17 +44,14 @@ void recursive_reverse_list(node_t *current)
 {
     if(current->next == NULL)
     {
-        // base case - update head and return 
         head = current;
         return;
     }
-
     recursive_reverse_list(current->next);
     node_t *temp = current->next;
     temp->next = current;
     current->next = NULL;
 }
-
 
 int main(void)
 {
@@ -68,18 +65,3 @@ int main(void)
     return 0;
 }
 
-//void recursive_reverse_list(node_t *current)
-//{
-//    if(current->next == NULL)    // base case - reached end of list
-//    {
-//        head = current;
-//        return;
-//    }
-//
-//    recursive_reverse_list(current->next);
-//
-//    node_t *temp = current->next;
-//    temp->next = current;
-//    current->next = NULL;
-//}
-//
