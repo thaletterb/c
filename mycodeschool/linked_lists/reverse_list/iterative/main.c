@@ -44,33 +44,22 @@ void insert_end(int value)
 
 void reverse_list(void)
 {
-    node_t *temp = head;
-    node_t *temp_current_address;
-    node_t *temp_next_link;
-
-    /** in the final reversed list current head's ->next field should now point
-     *  to null i.e: temp->next = NULL;
-     *
-     *  But we can't lose the current head's current -> next field
-     *  so let's save that first:
-     *      temp_next_link = temp->next; 
-     *
-     *  as well as the address of the current head:
-     *      temp_current_address = temp; 
-     */
-    temp_current_address = temp;
-    temp_next_link = temp->next;
-    temp->next = NULL;
-
-    while(temp_next_link != NULL)
+    node_t *current, *previous, *next;
+    current = head;
+    previous = NULL;
+    next = current->next;
+    
+    // Traverse to the end of the list
+    while(current != NULL)
     {
-        temp = temp_next_link;
-        temp_next_link = temp->next;
+        next = current->next;       // Save the original link data
+        current->next = previous;   // Flip the new link data back to previous
+        previous = current;         // Set the new previous to the current
 
-        temp->next = temp_current_address;
-        temp_current_address = temp;
+        current = next;             // Move the current to the original link
     }
-    head = temp_current_address;    // update head to be the old tail
+
+    head = previous;
 }
 
 int main(void)
@@ -86,3 +75,33 @@ int main(void)
     print_list();
     return 0;
 }
+//void reverse_list(void)
+//{
+//    node_t *temp = head;
+//    node_t *temp_current_address;
+//    node_t *temp_next_link;
+//
+//    /** in the final reversed list current head's ->next field should now point
+//     *  to null i.e: temp->next = NULL;
+//     *
+//     *  But we can't lose the current head's current -> next field
+//     *  so let's save that first:
+//     *      temp_next_link = temp->next; 
+//     *
+//     *  as well as the address of the current head:
+//     *      temp_current_address = temp; 
+//     */
+//    temp_current_address = temp;
+//    temp_next_link = temp->next;
+//    temp->next = NULL;
+//
+//    while(temp_next_link != NULL)
+//    {
+//        temp = temp_next_link;
+//        temp_next_link = temp->next;
+//
+//        temp->next = temp_current_address;
+//        temp_current_address = temp;
+//    }
+//    head = temp_current_address;    // update head to be the old tail
+//}
